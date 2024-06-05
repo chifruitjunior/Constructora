@@ -1,0 +1,98 @@
+mat-card{
+    width: 800%;
+  }
+  
+  mat-grid-tile{
+    color: black;
+    margin-top: 30px;
+  }
+  
+  .ancho{
+    width: 80%;
+  }
+  
+  section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+  /* En tu archivo de estilos CSS */
+  .right-align-image {
+    display: flex;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    height: 100%; /* Opcional: asegura que el contenedor ocupe todo el espacio vertical disponible */
+  }
+  
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  
+  /* En tu archivo .scss o .css */
+  .ancho {
+    width: 80%;
+    margin-bottom: 16px;
+  }
+  mat-form-field {
+    font-size: 14px;
+    padding: 8px;
+  }
+  
+  mat-label, input {
+    font-size: 14px; /* Tamaño más pequeño para el texto */
+  }
+  .mat-horizontal-stepper-header {
+    min-width: 50px; /* Reduce el ancho mínimo de cada paso */
+    padding: 8px; /* Reduce el padding alrededor de los pasos */
+  }
+  
+  .mat-step-label {
+    font-size: 12px; /* Tamaño de fuente más pequeño para las etiquetas */
+  }
+  .mat-stepper-indicator {
+    height: 20px; /* Altura reducida */
+    width: 20px; /* Ancho reducido */
+    font-size: 12px; /* Tamaño de fuente más pequeño para el número */
+  }
+  .mat-horizontal-stepper-header-container {
+    justify-content: 10%; /* Ajusta esto según necesites */
+  }
+  
+  .example-container{
+    height: 500px; /* Altura reducida */
+    width: 1250px;
+  }
+  
+  
+  
+  
+  

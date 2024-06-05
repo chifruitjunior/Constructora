@@ -1,0 +1,122 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+      <mat-toolbar>
+        <span>{{ action }} Cliente</span>
+      </mat-toolbar>
+
+      <mat-horizontal-stepper [linear]="true" #stepper>
+        <!-- Paso 1: ID -->
+        <mat-step [stepControl]="idFormGroup">
+          <form [formGroup]="idFormGroup">
+            <ng-template matStepLabel>ID</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>ID</mat-label>
+              <input matInput formControlName="id" />
+            </mat-form-field>
+            <button mat-button matStepperNext mat-flat-button color="primary">
+              Siguiente
+            </button>
+            <button
+              mat-button
+              mat-flat-button
+              color="warn"
+              (click)="cancelar()"
+            >
+              Cancelar
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 2: Nombre -->
+        <mat-step [stepControl]="nameFormGroup">
+          <form [formGroup]="nameFormGroup">
+            <ng-template matStepLabel>Nombre</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+            <button
+              mat-button
+              matStepperPrevious
+              mat-stroked-button
+              color="warn"
+            >
+              Atrás
+            </button>
+            <button mat-button matStepperNext mat-stroked-button>
+              Siguiente
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 3: Teléfono -->
+        <mat-step [stepControl]="telFormGroup">
+          <form [formGroup]="telFormGroup">
+            <ng-template matStepLabel>Teléfono</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Teléfono</mat-label>
+              <input matInput formControlName="tel" />
+            </mat-form-field>
+            <button
+              mat-button
+              matStepperPrevious
+              mat-stroked-button
+              color="warn"
+            >
+              Atrás
+            </button>
+            <button mat-button matStepperNext mat-stroked-button>
+              Siguiente
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 4: Email -->
+        <mat-step [stepControl]="emailFormGroup">
+          <form [formGroup]="emailFormGroup">
+            <ng-template matStepLabel>Email</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" />
+            </mat-form-field>
+            <button
+              mat-button
+              matStepperPrevious
+              mat-stroked-button
+              color="warn"
+            >
+              Atrás
+            </button>
+            <button mat-button matStepperNext mat-stroked-button>
+              Siguiente
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 5: Dirección -->
+        <mat-step [stepControl]="direcFormGroup">
+          <form [formGroup]="direcFormGroup">
+            <ng-template matStepLabel>Dirección</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="direc" />
+            </mat-form-field>
+            <button mat-button mat-flat-button matStepperPrevious color="warn">
+              Atrás
+            </button>
+            <button
+              mat-button
+              matStepperNext
+              mat-flat-button
+              color="primary"
+              (click)="agregarCliente()"
+            >
+              Aceptar
+            </button>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

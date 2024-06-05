@@ -1,0 +1,255 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+      <mat-toolbar>
+        <span>{{ action }} Proyecto</span>
+      </mat-toolbar>
+
+      <mat-horizontal-stepper [linear]="true" #stepper>
+        <!-- Paso 1: ID -->
+        <mat-step [stepControl]="idFormGroup">
+          <form [formGroup]="idFormGroup">
+            <ng-template matStepLabel>ID</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>ID</mat-label>
+              <input matInput formControlName="id" />
+            </mat-form-field>
+            <button mat-button matStepperNext mat-flat-button color="primary">
+              Siguiente
+            </button>
+            <button
+              mat-button
+              mat-flat-button
+              color="warn"
+              (click)="cancelar()"
+            >
+              Cancelar
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 2: Nombre -->
+        <mat-step [stepControl]="nameFormGroup">
+          <form [formGroup]="nameFormGroup">
+            <ng-template matStepLabel>Nombre</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+            <button
+              mat-button
+              matStepperPrevious
+              mat-stroked-button
+              color="warn"
+            >
+              Atrás
+            </button>
+            <button mat-button matStepperNext mat-stroked-button>
+              Siguiente
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 3: Descripción -->
+        <mat-step [stepControl]="descripcionFormGroup">
+          <form [formGroup]="descripcionFormGroup">
+            <ng-template matStepLabel>Descripción</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Descripción</mat-label>
+              <input matInput formControlName="descripcion" />
+            </mat-form-field>
+            <button
+              mat-button
+              matStepperPrevious
+              mat-stroked-button
+              color="warn"
+            >
+              Atrás
+            </button>
+            <button mat-button matStepperNext mat-stroked-button>
+              Siguiente
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 4: Fecha de Inicio -->
+        <mat-step [stepControl]="fechaInicioFormGroup">
+          <form [formGroup]="fechaInicioFormGroup">
+            <ng-template matStepLabel>Fecha de Inicio</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Fecha de Inicio</mat-label>
+              <input matInput formControlName="fechaInicio" />
+            </mat-form-field>
+            <button
+              mat-button
+              matStepperPrevious
+              mat-stroked-button
+              color="warn"
+            >
+              Atrás
+            </button>
+            <button mat-button matStepperNext mat-stroked-button>
+              Siguiente
+            </button>
+          </form>
+        </mat-step>
+
+        <!-- Paso 5: Fecha de Fin -->
+        <mat-step [stepControl]="fechaFinFormGroup">
+          <form [formGroup]="fechaFinFormGroup">
+            <ng-template matStepLabel>Fecha de Fin</ng-template>
+            <mat-form-field class="ancho">
+              <mat-label>Fecha de Fin</mat-label>
+              <input matInput formControlName="fechaFin" />
+            </mat-form-field>
+            <button mat-button mat-flat-button matStepperPrevious color="warn">
+              Atrás
+            </button>
+            <button
+              mat-button
+              matStepperNext
+              mat-flat-button
+              color="primary"
+              (click)="
+                action === 'Agregar' ? agregarProyecto() : editarProyecto()
+              "
+            >
+              {{ action }} Proyecto
+            </button>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+
+    <hr />
+
+    <mat-sidenav-content>
+      <div class="content">
+        <div *ngIf="proyectosTemporales.length > 0">
+          <mat-form-field class="filtro">
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Ex. ium"
+              #input
+            />
+          </mat-form-field>
+
+          <div class="mat-elevation-z2">
+            <table mat-table [dataSource]="dataSource" matSort>
+              <!-- ID Column -->
+              <ng-container matColumnDef="id">
+                <th
+                  class="no"
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                >
+                  No.
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th
+                  class="nombre"
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                >
+                  Nombre
+                </th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+              </ng-container>
+
+              <!-- Descripción Column -->
+              <ng-container matColumnDef="descripcion">
+                <th
+                  class="descripcion"
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                >
+                  Descripción
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.descripcion }}
+                </td>
+              </ng-container>
+
+              <!-- Fecha de Inicio Column -->
+              <ng-container matColumnDef="fechaInicio">
+                <th
+                  class="fechaInicio"
+                  mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header
+                >
+                  Fecha de Inicio
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaInicio }}
+                </td>
+              </ng-container>
+              <!-- Fecha de Fin Column -->
+              <ng-container matColumnDef="fechaFin">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Fecha de Fin
+                </th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.fechaFin }}
+                </td>
+              </ng-container>
+
+              <!-- Acciones Column -->
+              <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td
+                  mat-cell
+                  *matCellDef="let element"
+                  style="text-align: right"
+                >
+                  <button
+                    mat-icon-button
+                    (click)="editarProyectoTemporal(element)"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    (click)="eliminarProyectoTemporal(element)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator
+              class="pag"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page of projects"
+            ></mat-paginator>
+          </div>
+        </div>
+        <h2 *ngIf="proyectosTemporales.length == 0" style="color: black">
+          No hay proyectos para mostrar
+        </h2>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="enviarProyectos()"
+          [disabled]="proyectosTemporales.length == 0"
+        >
+          Enviar Proyectos
+        </button>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

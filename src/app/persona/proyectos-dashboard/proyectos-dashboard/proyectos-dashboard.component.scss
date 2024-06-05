@@ -1,0 +1,75 @@
+/* Ajustes para los elementos principales */
+.example-container {
+    width: 100%; /* Asegura que el contenedor principal ocupe todo el ancho disponible */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos horizontalmente */
+  }
+  
+  .filtro {
+    width: 100%; /* Ajusta el filtro para que no exceda el ancho del contenedor */
+  }
+  
+  .content {
+    width: 100%; /* Usa todo el ancho disponible dentro del contenedor principal */
+    max-width: 1300px; /* Aumenta el ancho máximo para pantallas más grandes */
+    padding: 20px;
+    box-sizing: border-box;
+    margin: auto; /* Centra el contenido */
+  }
+  
+  .mat-toolbar {
+    width: 100%; /* Ajusta la barra de herramientas para que use el ancho completo */
+    display: flex;
+    justify-content: space-between; /* Para alinear el botón AGREGAR a la derecha */
+  }
+  
+  .btn-agregar {
+    margin-left: auto; /* Alinea el botón AGREGAR a la derecha */
+    margin-right: 20px; /* Da un poco de espacio a la derecha si es necesario */
+  }
+  
+  .mat-elevation-z2 {
+    width: 100%; /* Asegura que el componente tenga un ancho del 100% de su contenedor */
+    max-width: 1400px; /* Aumenta el ancho máximo para pantallas grandes */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra para elevar el elemento */
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+  }
+  
+  table {
+    width: 100%; /* Asegura que la tabla utilice todo el ancho del contenedor */
+    table-layout: fixed; /* Distribuye el ancho de las columnas de manera uniforme */
+  }
+  
+  .acciones-cell {
+    text-align: right; /* Alinea las acciones a la derecha */
+    padding-right: 20px; /* Añade un poco de espacio a la derecha si es necesario */
+  }
+  
+  .no-clientes {
+    text-align: center;
+    color: black;
+  }
+  
+  /* Estilos CSS para ajustar el ancho de las columnas de la tabla */
+  .no { /* Columna ID */
+    width: 5%; /* Ajusta este valor según sea necesario para reducir el ancho */
+  }
+  
+  .nombre{
+    width: 25%;
+  }
+  
+  .telefono{
+    width: 10%;
+  }
+  
+  .email{
+    width: 24%;
+  }
+  
+  .edit{
+    width: 30%;
+  }
+  
+  
