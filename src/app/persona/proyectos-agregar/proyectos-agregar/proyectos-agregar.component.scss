@@ -1,98 +1,176 @@
-mat-card{
-    width: 800%;
-  }
-  
-  mat-grid-tile{
-    color: black;
-    margin-top: 30px;
-  }
-  
-  .ancho{
-    width: 80%;
-  }
-  
-  section {
-    display: table;
-  }
-  
-  .example-label {
-    display: table-cell;
-    font-size: 14px;
-    margin-left: 8px;
-    min-width: 120px;
-  }
-  
-  .example-button-row {
-    display: table-cell;
-    max-width: 600px;
-  }
-  
-  .example-button-row .mat-mdc-button-base {
-    margin: 8px 8px 8px 0;
-  }
-  
-  .example-flex-container {
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f0f0f0;
+}
+
+.content {
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-toolbar {
+  background-color: #3f51b5;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+
+  .row {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    gap: 20px;
+
+    mat-form-field {
+      flex: 1;
+
+      .mat-form-field-label {
+        color: #666;
+      }
+
+      .mat-form-field-underline {
+        background-color: #ccc;
+      }
+
+      .mat-form-field-ripple {
+        background-color: #3f51b5;
+      }
+    }
   }
-  
-  .example-button-container {
+
+  .descripcion {
+    width: 100%;
+  }
+
+  .button-row {
     display: flex;
-    justify-content: center;
-    width: 120px;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+
+    button {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
-  /* En tu archivo de estilos CSS */
-  .right-align-image {
+}
+
+.filtro {
+  width: 100%;
+  margin-bottom: 20px;
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  .mat-header-row {
+    background-color: #3f51b5;
+    color: #fff;
+
+    .mat-header-cell {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 12px;
+    }
+  }
+
+  .mat-row {
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  .mat-cell {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.mat-column-id,
+.mat-column-name,
+.mat-column-fechaInicio,
+.mat-column-fechaFin {
+  width: 150px;
+}
+
+.mat-column-descripcion {
+  width: 300px;
+}
+
+.mat-column-acciones {
+  width: 100px;
+  text-align: center;
+
+  button {
+    margin: 0 4px;
+  }
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+
+  .row {
     display: flex;
-    justify-content: flex-end; /* Alinea el contenido a la derecha */
-    height: 100%; /* Opcional: asegura que el contenedor ocupe todo el espacio vertical disponible */
+    gap: 20px;
+
+    mat-form-field {
+      flex: 1;
+
+      .mat-form-field-label {
+        color: #666;
+      }
+
+      .mat-form-field-underline {
+        background-color: #ccc;
+      }
+
+      .mat-form-field-ripple {
+        background-color: #3f51b5;
+      }
+    }
   }
-  
-  .mat-stepper-horizontal {
-    margin-top: 8px;
+
+  .descripcion {
+    width: 100%;
   }
-  
-  .mat-mdc-form-field {
-    margin-top: 16px;
+
+  .button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+
+    button {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
-  
-  /* En tu archivo .scss o .css */
-  .ancho {
-    width: 80%;
-    margin-bottom: 16px;
-  }
-  mat-form-field {
-    font-size: 14px;
-    padding: 8px;
-  }
-  
-  mat-label, input {
-    font-size: 14px; /* Tamaño más pequeño para el texto */
-  }
-  .mat-horizontal-stepper-header {
-    min-width: 50px; /* Reduce el ancho mínimo de cada paso */
-    padding: 8px; /* Reduce el padding alrededor de los pasos */
-  }
-  
-  .mat-step-label {
-    font-size: 12px; /* Tamaño de fuente más pequeño para las etiquetas */
-  }
-  .mat-stepper-indicator {
-    height: 20px; /* Altura reducida */
-    width: 20px; /* Ancho reducido */
-    font-size: 12px; /* Tamaño de fuente más pequeño para el número */
-  }
-  .mat-horizontal-stepper-header-container {
-    justify-content: 10%; /* Ajusta esto según necesites */
-  }
-  
-  .example-container{
-    height: 600px; /* Altura reducida */
-    width: 1250px;
-  }
-  
-  
-  
-  
-  
+}

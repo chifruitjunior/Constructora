@@ -5,120 +5,49 @@
         <span>{{ action }} Proyecto</span>
       </mat-toolbar>
 
-      <mat-horizontal-stepper [linear]="true" #stepper>
-        <!-- Paso 1: ID -->
-        <mat-step [stepControl]="idFormGroup">
-          <form [formGroup]="idFormGroup">
-            <ng-template matStepLabel>ID</ng-template>
-            <mat-form-field class="ancho">
-              <mat-label>ID</mat-label>
-              <input matInput formControlName="id" />
-            </mat-form-field>
-            <button mat-button matStepperNext mat-flat-button color="primary">
-              Siguiente
-            </button>
-            <button
-              mat-button
-              mat-flat-button
-              color="warn"
-              (click)="cancelar()"
-            >
-              Cancelar
-            </button>
-          </form>
-        </mat-step>
+      <form [formGroup]="proyectoForm">
+        <div class="row">
+          <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput formControlName="id" />
+          </mat-form-field>
 
-        <!-- Paso 2: Nombre -->
-        <mat-step [stepControl]="nameFormGroup">
-          <form [formGroup]="nameFormGroup">
-            <ng-template matStepLabel>Nombre</ng-template>
-            <mat-form-field class="ancho">
-              <mat-label>Nombre</mat-label>
-              <input matInput formControlName="name" />
-            </mat-form-field>
-            <button
-              mat-button
-              matStepperPrevious
-              mat-stroked-button
-              color="warn"
-            >
-              Atrás
-            </button>
-            <button mat-button matStepperNext mat-stroked-button>
-              Siguiente
-            </button>
-          </form>
-        </mat-step>
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
 
-        <!-- Paso 3: Descripción -->
-        <mat-step [stepControl]="descripcionFormGroup">
-          <form [formGroup]="descripcionFormGroup">
-            <ng-template matStepLabel>Descripción</ng-template>
-            <mat-form-field class="ancho">
-              <mat-label>Descripción</mat-label>
-              <input matInput formControlName="descripcion" />
-            </mat-form-field>
-            <button
-              mat-button
-              matStepperPrevious
-              mat-stroked-button
-              color="warn"
-            >
-              Atrás
-            </button>
-            <button mat-button matStepperNext mat-stroked-button>
-              Siguiente
-            </button>
-          </form>
-        </mat-step>
+        <div class="row">
+          <mat-form-field>
+            <mat-label>Fecha de Inicio</mat-label>
+            <input matInput formControlName="fechaInicio" />
+          </mat-form-field>
 
-        <!-- Paso 4: Fecha de Inicio -->
-        <mat-step [stepControl]="fechaInicioFormGroup">
-          <form [formGroup]="fechaInicioFormGroup">
-            <ng-template matStepLabel>Fecha de Inicio</ng-template>
-            <mat-form-field class="ancho">
-              <mat-label>Fecha de Inicio</mat-label>
-              <input matInput formControlName="fechaInicio" />
-            </mat-form-field>
-            <button
-              mat-button
-              matStepperPrevious
-              mat-stroked-button
-              color="warn"
-            >
-              Atrás
-            </button>
-            <button mat-button matStepperNext mat-stroked-button>
-              Siguiente
-            </button>
-          </form>
-        </mat-step>
+          <mat-form-field>
+            <mat-label>Fecha de Fin</mat-label>
+            <input matInput formControlName="fechaFin" />
+          </mat-form-field>
+        </div>
 
-        <!-- Paso 5: Fecha de Fin -->
-        <mat-step [stepControl]="fechaFinFormGroup">
-          <form [formGroup]="fechaFinFormGroup">
-            <ng-template matStepLabel>Fecha de Fin</ng-template>
-            <mat-form-field class="ancho">
-              <mat-label>Fecha de Fin</mat-label>
-              <input matInput formControlName="fechaFin" />
-            </mat-form-field>
-            <button mat-button mat-flat-button matStepperPrevious color="warn">
-              Atrás
-            </button>
-            <button
-              mat-button
-              matStepperNext
-              mat-flat-button
-              color="primary"
-              (click)="
-                action === 'Agregar' ? agregarProyecto() : editarProyecto()
-              "
-            >
-              {{ action }} Proyecto
-            </button>
-          </form>
-        </mat-step>
-      </mat-horizontal-stepper>
+        <mat-form-field class="descripcion">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion"></textarea>
+        </mat-form-field>
+
+        <div class="button-row">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="
+              action === 'Agregar' ? agregarProyecto() : editarProyecto()
+            "
+          >
+            {{ action }} Proyecto
+          </button>
+          <button mat-stroked-button (click)="cancelar()">Cancelar</button>
+        </div>
+      </form>
     </div>
 
     <hr />

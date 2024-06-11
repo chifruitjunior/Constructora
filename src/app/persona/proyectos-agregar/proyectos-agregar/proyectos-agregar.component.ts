@@ -21,18 +21,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProyectoService } from '../../../services/proyecto.service';
 import { Proyectos } from '../../../interfaces/proyectos';
-import { MatStepperModule, MatStepper } from '@angular/material/stepper';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-proyectos-agregar',
   standalone: true,
   imports: [
     CommonModule,
-    MatStepperModule,
     MatSidenavModule,
     MatDividerModule,
     RouterModule,
@@ -48,6 +46,7 @@ import { MatTableDataSource } from '@angular/material/table';
     MatButtonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatExpansionModule,
   ],
   templateUrl: './proyectos-agregar.component.html',
   styleUrls: ['./proyectos-agregar.component.scss'],
@@ -55,20 +54,15 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ProyectosAgregarComponent implements OnInit {
   firebaseKey: string | null = null;
   action: string = 'Agregar';
-
-  idFormGroup: FormGroup;
-  nameFormGroup: FormGroup;
-  descripcionFormGroup: FormGroup;
-  fechaInicioFormGroup: FormGroup;
-  fechaFinFormGroup: FormGroup;
+  proyectoForm: FormGroup;
 
   proyecto: Proyectos | null = null;
 
   proyectosTemporales: Proyectos[] = [];
   dataSource: MatTableDataSource<Proyectos>;
+  proyectoEditado: Proyectos | null = null; // Proyecto temporal antes de editar
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild('stepper') stepper!: MatStepper;
 
   displayedColumns: string[] = [
     'id',
@@ -84,22 +78,13 @@ export class ProyectosAgregarComponent implements OnInit {
     private router: Router,
     private aRoute: ActivatedRoute,
     private _proyectoService: ProyectoService,
-    private snackBar: MatSnackBar,
-    private proyectoService: ProyectoService
+    private snackBar: MatSnackBar
   ) {
-    this.idFormGroup = this._formBuilder.group({
+    this.proyectoForm = this._formBuilder.group({
       id: ['', Validators.required],
-    });
-    this.nameFormGroup = this._formBuilder.group({
       name: ['', Validators.required],
-    });
-    this.descripcionFormGroup = this._formBuilder.group({
       descripcion: ['', Validators.required],
-    });
-    this.fechaInicioFormGroup = this._formBuilder.group({
       fechaInicio: ['', Validators.required],
-    });
-    this.fechaFinFormGroup = this._formBuilder.group({
       fechaFin: ['', Validators.required],
     });
 
@@ -112,34 +97,16 @@ export class ProyectosAgregarComponent implements OnInit {
     if (this.proyecto) {
       this.firebaseKey = this.proyecto.firebaseKey;
       this.action = 'Editar';
-      this.idFormGroup.setValue({ id: this.proyecto.id });
-      this.nameFormGroup.setValue({ name: this.proyecto.name });
-      this.descripcionFormGroup.setValue({
-        descripcion: this.proyecto.descripcion,
-      });
-      this.fechaInicioFormGroup.setValue({
-        fechaInicio: this.proyecto.fechaInicio,
-      });
-      this.fechaFinFormGroup.setValue({ fechaFin: this.proyecto.fechaFin });
+      this.proyectoForm.patchValue(this.proyecto);
     } else {
       this.action = 'Agregar';
     }
   }
 
   agregarProyecto(): void {
-    if (
-      this.idFormGroup.valid &&
-      this.nameFormGroup.valid &&
-      this.descripcionFormGroup.valid &&
-      this.fechaInicioFormGroup.valid &&
-      this.fechaFinFormGroup.valid
-    ) {
+    if (this.proyectoForm.valid) {
       const proyecto: Proyectos = {
-        id: this.idFormGroup.value.id,
-        name: this.nameFormGroup.value.name,
-        descripcion: this.descripcionFormGroup.value.descripcion,
-        fechaInicio: this.fechaInicioFormGroup.value.fechaInicio,
-        fechaFin: this.fechaFinFormGroup.value.fechaFin,
+        ...this.proyectoForm.value,
         firebaseKey: this.firebaseKey,
       };
 
@@ -147,25 +114,14 @@ export class ProyectosAgregarComponent implements OnInit {
         (p) => p.id === proyecto.id
       );
       if (index !== -1) {
-        // Editar proyecto temporal existente
         this.proyectosTemporales[index] = proyecto;
       } else {
-        // Agregar nuevo proyecto temporal
         this.proyectosTemporales.push(proyecto);
       }
 
       this.dataSource.data = this.proyectosTemporales;
-      this.resetForm();
-      this.stepper.reset();
+      this.proyectoForm.reset();
     }
-  }
-
-  resetForm(): void {
-    this.idFormGroup.reset();
-    this.nameFormGroup.reset();
-    this.descripcionFormGroup.reset();
-    this.fechaInicioFormGroup.reset();
-    this.fechaFinFormGroup.reset();
   }
 
   enviarProyectos(): void {
@@ -189,20 +145,9 @@ export class ProyectosAgregarComponent implements OnInit {
   }
 
   editarProyecto(): void {
-    if (
-      this.idFormGroup.valid &&
-      this.nameFormGroup.valid &&
-      this.descripcionFormGroup.valid &&
-      this.fechaInicioFormGroup.valid &&
-      this.fechaFinFormGroup.valid &&
-      this.firebaseKey !== null
-    ) {
+    if (this.proyectoForm.valid && this.firebaseKey !== null) {
       const proyecto: Proyectos = {
-        id: this.idFormGroup.value.id,
-        name: this.nameFormGroup.value.name,
-        descripcion: this.descripcionFormGroup.value.descripcion,
-        fechaInicio: this.fechaInicioFormGroup.value.fechaInicio,
-        fechaFin: this.fechaFinFormGroup.value.fechaFin,
+        ...this.proyectoForm.value,
         firebaseKey: this.firebaseKey,
       };
 
@@ -232,8 +177,9 @@ export class ProyectosAgregarComponent implements OnInit {
   editProyecto(firebaseKey: string): void {
     this.router.navigate([`/dashboard/editProyecto/${firebaseKey}`]);
   }
+
   getListProyectos(): void {
-    this.proyectoService.getListProyecto().subscribe((proyectos) => {
+    this._proyectoService.getListProyecto().subscribe((proyectos) => {
       this.dataSource.data = proyectos;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -241,7 +187,7 @@ export class ProyectosAgregarComponent implements OnInit {
   }
 
   eliminarProyecto(firebaseKey: string): void {
-    this.proyectoService.eliminarProyecto(firebaseKey).subscribe(() => {
+    this._proyectoService.eliminarProyecto(firebaseKey).subscribe(() => {
       this.getListProyectos();
       this.snackBar.open('Proyecto eliminado correctamente', 'Cerrar', {
         duration: 3000,
@@ -254,11 +200,8 @@ export class ProyectosAgregarComponent implements OnInit {
       (p) => p.id === proyecto.id
     );
     if (index !== -1) {
-      this.idFormGroup.setValue({ id: proyecto.id });
-      this.nameFormGroup.setValue({ name: proyecto.name });
-      this.descripcionFormGroup.setValue({ descripcion: proyecto.descripcion });
-      this.fechaInicioFormGroup.setValue({ fechaInicio: proyecto.fechaInicio });
-      this.fechaFinFormGroup.setValue({ fechaFin: proyecto.fechaFin });
+      this.proyectoEditado = { ...proyecto }; // Guardar copia del proyecto
+      this.proyectoForm.patchValue(proyecto);
       this.firebaseKey = proyecto.firebaseKey;
       this.proyectosTemporales.splice(index, 1);
       this.dataSource.data = this.proyectosTemporales;
@@ -276,6 +219,12 @@ export class ProyectosAgregarComponent implements OnInit {
   }
 
   cancelar(): void {
-    this.router.navigate(['/dashboard/proyectos-dashboard']);
+    if (this.proyectoEditado) {
+      this.proyectosTemporales.push(this.proyectoEditado);
+      this.dataSource.data = this.proyectosTemporales;
+      this.proyectoEditado = null;
+      this.proyectoForm.reset();
+    }
+    this.router.navigate(['/dashboard/proyectos-agregar']);
   }
 }
